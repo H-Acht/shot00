@@ -9,13 +9,6 @@ namespace
 
 Shot::Shot()
 {
-	m_handle = -1;
-	m_pos.x = 100.0f;
-	m_pos.y = 100.0f;
-
-	m_vec.x = 8.0f;
-	m_vec.y = 0.0f;
-
 	m_isExist = false;
 }
 
@@ -35,6 +28,8 @@ void Shot::start(Vec2 pos)
 
 void Shot::update()
 {
+
+
 	if (!m_isExist) return;
 	m_pos += m_vec;
 
