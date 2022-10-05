@@ -36,9 +36,9 @@ private:
 	// プレイヤー
 	Player m_player;
 	// ショット
-	//ShotBase* m_pShot[kShotMax];
+	ShotBase* m_pShot[kShotMax];
 
-	ShotSG* m_pShotSG[kShotMax];
-	ShotNormal* m_pShotNormal[kShotMax];
-	ShotSin* m_pShotSin[kShotMax];
+	//ShotSG* m_pShotSG[kShotMax];
+	//ShotNormal* m_pShotNormal[kShotMax];
+	//ShotSin* m_pShotSin[kShotMax];
 };

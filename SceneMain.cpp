@@ -28,19 +28,10 @@ void SceneMain::init()
 	m_player.init();
 	m_player.setMain(this);
 
-	for (auto& shot : m_pShotSG)
+	for (auto& pShot : m_pShot)
 	{
-		shot = nullptr;
+		pShot = nullptr;
 	}
-	for (auto& shot : m_pShotNormal)
-	{
-		shot = nullptr;
-	}
-	for (auto& shot : m_pShotSin)
-	{
-		shot = nullptr;
-	}
-
 }
 
 // I—¹ˆ—
@@ -50,64 +41,28 @@ void SceneMain::end()
 	DeleteGraph(m_hShotGraphic);
 
 	m_player.update();
-	for (auto& shot : m_pShotSG)
+	for (auto& pShot : m_pShot)
 	{
-		if (!shot) continue;
-		delete shot;
-		shot = nullptr;
+		if (!pShot) continue;
+		delete pShot;
+		pShot = nullptr;
 	}
-	for (auto& shot : m_pShotNormal)
-	{
-		if (!shot) continue;
-		delete shot;
-		shot = nullptr;
-	}
-
-	for (auto& shot : m_pShotSin)
-	{
-		if (!shot) continue;
-		delete shot;
-		shot = nullptr;
-	}
-
 }
 
 // –ˆƒtƒŒ[ƒ€‚Ìˆ—
 void SceneMain::update()
 {
 	m_player.update();
-	for (auto& shot : m_pShotSG)
+	for (auto& pShot : m_pShot)
 	{
-		if (!shot) continue;
-		shot->update();
-		if (!shot->isExist())
+		if (!pShot) continue;
+		pShot->update();
+		if (!pShot->isExist())
 		{
-			delete shot;
-			shot = nullptr;
+			delete pShot;
+			pShot = nullptr;
 		}
 	}
-	for (auto& shot : m_pShotNormal)
-	{
-		if (!shot) continue;
-		shot->update();
-		if (!shot->isExist())
-		{
-			delete shot;
-			shot = nullptr;
-		}
-	}
-
-	for (auto& shot : m_pShotSin)
-	{
-		if (!shot) continue;
-		shot->update();
-		if (!shot->isExist())
-		{
-			delete shot;
-			shot = nullptr;
-		}
-	}
-
 }
 
 // –ˆƒtƒŒ[ƒ€‚Ì•`‰æ
@@ -115,56 +70,31 @@ void SceneMain::draw()
 {
 	m_player.draw();
 
-	for (auto& shot : m_pShotSG)
+	for (auto& pShot : m_pShot)
 	{
-		if (!shot) continue;
-		shot->draw();
-	}
-	for (auto& shot : m_pShotNormal)
-	{
-		if (!shot) continue;
-		shot->draw();
-	}
-	for (auto& shot : m_pShotSin)
-	{
-		if (!shot) continue;
-		shot->draw();
+		if (!pShot) continue;
+		pShot->draw();
 	}
 
 	//Œ»İ‘¶İ‚µ‚Ä‚¢‚é’e‚Ì”‚ğ•\¦
 	int shotNum = 0;
-	for(auto& shot : m_pShotSG)
+	for(auto& pShot : m_pShot)
 	{
-		if (!shot) continue;
-		if (shot->isExist()) shotNum += 2;
+		if (!pShot) continue;
+		if (pShot->isExist()) shotNum++;
 	}
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "SG:%d", shotNum);
-	shotNum = 0;
-	for (auto& shot : m_pShotNormal)
-	{
-		if (!shot) continue;
-		if (shot->isExist()) shotNum++;
-	}
-	DrawFormatString(0, 32, GetColor(255, 255, 255), "Normal:%d", shotNum);
-	shotNum = 0;
-	for (auto& shot : m_pShotSin)
-	{
-		if (!shot) continue;
-		if (shot->isExist()) shotNum++;
-	}
-	DrawFormatString(0, 64, GetColor(255, 255, 255), "Sin:%d", shotNum);
-
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "’e‚Ì”:%d", shotNum);
 }
 
 bool SceneMain::createShotSG(Vec2 pos)
 {
-	for (auto& shot : m_pShotSG)
+	for (auto& pShot : m_pShot)
 	{
-		if (shot)	continue;
+		if (pShot)	continue;
 
-		shot = new ShotSG;
-		shot->setHandle(m_hShotGraphic);
-		shot->start(pos);
+		pShot = new ShotSG;
+		pShot->setHandle(m_hShotGraphic);
+		pShot->start(pos);
 		return true;
 	}
 	return false;
@@ -172,13 +102,13 @@ bool SceneMain::createShotSG(Vec2 pos)
 
 bool SceneMain::createShotNormal(Vec2 pos)
 {
-	for (auto& shot : m_pShotNormal)
+	for (auto& pShot : m_pShot)
 	{
-		if (shot)	continue;
+		if (pShot)	continue;
 
-		shot = new ShotNormal;
-		shot->setHandle(m_hShotGraphic);
-		shot->start(pos);
+		pShot = new ShotNormal;
+		pShot->setHandle(m_hShotGraphic);
+		pShot->start(pos);
 		return true;
 	}
 	return false;
@@ -186,13 +116,13 @@ bool SceneMain::createShotNormal(Vec2 pos)
 
 bool SceneMain::createShotSin(Vec2 pos)
 {
-	for (auto& shot : m_pShotSin)
+	for (auto& pShot : m_pShot)
 	{
-		if (shot)	continue;
+		if (pShot)	continue;
 
-		shot = new ShotSin;
-		shot->setHandle(m_hShotGraphic);
-		shot->start(pos);
+		pShot = new ShotSin;
+		pShot->setHandle(m_hShotGraphic);
+		pShot->start(pos);
 		return true;
 	}
 	return false;
