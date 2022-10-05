@@ -12,6 +12,7 @@ SceneMain::SceneMain()
 	m_hPlayerGraphic = -1;
 	m_hShotGraphic = -1;
 }
+
 SceneMain::~SceneMain()
 {
 
@@ -27,10 +28,19 @@ void SceneMain::init()
 	m_player.init();
 	m_player.setMain(this);
 
-	for (auto& shot : m_shot)
+	for (auto& shot : m_pShotSG)
 	{
-		shot.setHandle(m_hShotGraphic);
+		shot = nullptr;
 	}
+	for (auto& shot : m_pShotNormal)
+	{
+		shot = nullptr;
+	}
+	for (auto& shot : m_pShotSin)
+	{
+		shot = nullptr;
+	}
+
 }
 
 // I—¹ˆ—
@@ -38,16 +48,66 @@ void SceneMain::end()
 {
 	DeleteGraph(m_hPlayerGraphic);
 	DeleteGraph(m_hShotGraphic);
+
+	m_player.update();
+	for (auto& shot : m_pShotSG)
+	{
+		if (!shot) continue;
+		delete shot;
+		shot = nullptr;
+	}
+	for (auto& shot : m_pShotNormal)
+	{
+		if (!shot) continue;
+		delete shot;
+		shot = nullptr;
+	}
+
+	for (auto& shot : m_pShotSin)
+	{
+		if (!shot) continue;
+		delete shot;
+		shot = nullptr;
+	}
+
 }
 
 // –ˆƒtƒŒ[ƒ€‚Ìˆ—
 void SceneMain::update()
 {
 	m_player.update();
-	for (auto& shot : m_shot)
+	for (auto& shot : m_pShotSG)
 	{
-		shot.update();
+		if (!shot) continue;
+		shot->update();
+		if (!shot->isExist())
+		{
+			delete shot;
+			shot = nullptr;
+		}
 	}
+	for (auto& shot : m_pShotNormal)
+	{
+		if (!shot) continue;
+		shot->update();
+		if (!shot->isExist())
+		{
+			delete shot;
+			shot = nullptr;
+		}
+	}
+
+	for (auto& shot : m_pShotSin)
+	{
+		if (!shot) continue;
+		shot->update();
+		if (!shot->isExist())
+		{
+			delete shot;
+			shot = nullptr;
+		}
+	}
+
 }
 
 // –ˆƒtƒŒ[ƒ€‚Ì•`‰æ
@@ -55,26 +115,84 @@ void SceneMain::draw()
 {
 	m_player.draw();
 
-	for (auto& shot : m_shot)
+	for (auto& shot : m_pShotSG)
 	{
-		shot.draw();
+		if (!shot) continue;
+		shot->draw();
 	}
+	for (auto& shot : m_pShotNormal)
+	{
+		if (!shot) continue;
+		shot->draw();
+	}
+	for (auto& shot : m_pShotSin)
+	{
+		if (!shot) continue;
+		shot->draw();
+	}
+
 	//Œ»İ‘¶İ‚µ‚Ä‚¢‚é’e‚Ì”‚ğ•\¦
 	int shotNum = 0;
-	for(auto& shot : m_shot)
+	for(auto& shot : m_pShotSG)
 	{
-		if (shot.isExist()) shotNum++;
+		if (!shot) continue;
+		if (shot->isExist()) shotNum += 2;
 	}
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "’e‚Ì”:%d", shotNum);
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "SG:%d", shotNum);
+	shotNum = 0;
+	for (auto& shot : m_pShotNormal)
+	{
+		if (!shot) continue;
+		if (shot->isExist()) shotNum++;
+	}
+	DrawFormatString(0, 32, GetColor(255, 255, 255), "Normal:%d", shotNum);
+	shotNum = 0;
+	for (auto& shot : m_pShotSin)
+	{
+		if (!shot) continue;
+		if (shot->isExist()) shotNum++;
+	}
+	DrawFormatString(0, 64, GetColor(255, 255, 255), "Sin:%d", shotNum);
+
 }
 
-bool SceneMain::createShot(Vec2 pos)
+bool SceneMain::createShotSG(Vec2 pos)
 {
-	for (auto& shot : m_shot)
+	for (auto& shot : m_pShotSG)
 	{
-		if (shot.isExist())	continue;
+		if (shot)	continue;
 
-		shot.start(pos);
+		shot = new ShotSG;
+		shot->setHandle(m_hShotGraphic);
+		shot->start(pos);
+		return true;
+	}
+	return false;
+}
+
+bool SceneMain::createShotNormal(Vec2 pos)
+{
+	for (auto& shot : m_pShotNormal)
+	{
+		if (shot)	continue;
+
+		shot = new ShotNormal;
+		shot->setHandle(m_hShotGraphic);
+		shot->start(pos);
+		return true;
+	}
+	return false;
+}
+
+bool SceneMain::createShotSin(Vec2 pos)
+{
+	for (auto& shot : m_pShotSin)
+	{
+		if (shot)	continue;
+
+		shot = new ShotSin;
+		shot->setHandle(m_hShotGraphic);
+		shot->start(pos);
 		return true;
 	}
 	return false;

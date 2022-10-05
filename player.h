@@ -28,7 +28,7 @@ public:
 	// î•ñ‚Ìæ“¾
 	Vec2 getPos() const { return m_pos; }
 
-private:
+protected:
 	int m_handle;
 
 	//SceneMain‚Ìƒ|ƒCƒ“ƒ^

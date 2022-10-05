@@ -13,15 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\Shot">
+      <UniqueIdentifier>{d8f1e9c2-5c07-467b-90a7-24bdb154e914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Shot">
+      <UniqueIdentifier>{2c5ba313-dc10-4f99-9152-23fd4a823111}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Vec2.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="shot.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="SceneMain.cpp">
@@ -31,7 +34,16 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ShotBase.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotNormal.cpp">
+      <Filter>ソース ファイル\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotSG.cpp">
+      <Filter>ソース ファイル\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotSin.cpp">
+      <Filter>ソース ファイル\Shot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -41,9 +53,6 @@
     <ClInclude Include="Vec2.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="shot.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="SceneMain.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -51,7 +60,16 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ShotBase.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Shot</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotNormal.h">
+      <Filter>ヘッダー ファイル\Shot</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotSG.h">
+      <Filter>ヘッダー ファイル\Shot</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotSin.h">
+      <Filter>ヘッダー ファイル\Shot</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
